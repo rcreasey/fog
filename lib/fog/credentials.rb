@@ -44,6 +44,8 @@ module Fog
   :slicehost_password:    INTENTIONALLY_LEFT_BLANK
   :terremark_username:    INTENTIONALLY_LEFT_BLANK
   :terremark_password:    INTENTIONALLY_LEFT_BLANK
+  :xenserver_username:    INTENTIONALLY_LEFT_BLANK
+  :xenserver_password:    INTENTIONALLY_LEFT_BLANK
 YML
           print(yml)
           raise(ArgumentError.new("Missing Credentials"))

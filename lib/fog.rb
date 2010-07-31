@@ -37,6 +37,7 @@ require 'fog/rackspace'
 require 'fog/slicehost'
 require 'fog/terremark'
 require 'fog/vcloud'
+require 'fog/xenserver'
 
 module Fog
 
