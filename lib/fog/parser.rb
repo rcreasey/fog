@@ -85,6 +85,10 @@ module Fog
           @stack.last[name.to_sym].merge!(parsed_attributes)
           @stack.last[name.to_sym]
         end
+        if data.is_a? Hash
+          pp data
+          puts "-+" * 20
+        end
         @stack.push(data)
       end
     end

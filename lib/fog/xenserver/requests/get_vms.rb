@@ -9,7 +9,7 @@ module Fog
           :parser   => Fog::Parsers::Xenserver::GetVms.new,
           :path     => 'VM.get_all_records'
         )
-    end
+      end
 
     end
 
