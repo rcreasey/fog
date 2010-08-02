@@ -5,10 +5,7 @@ module Fog
       require 'fog/xenserver/parsers/get_vms'
 
       def get_vms
-        @connection.request(
-          :parser   => Fog::Parsers::Xenserver::GetVms.new,
-          :path     => 'VM.get_all_records'
-        )
+        @connection.request(:parser => Fog::Parsers::Xenserver::GetVms.new, :method => 'VM.get_all_records')
       end
 
     end

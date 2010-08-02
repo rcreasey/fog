@@ -4,31 +4,19 @@ module Fog
 
       require 'fog/xenserver/parsers/get_vm'
 
-      def get_vm
-        @connection.request(
-          :parser   => Fog::Parsers::Xenserver::GetVms.new,
-          :path     => 'VM.get_all_records'
-        )
-      end
-      
-      def get_vm_by_name( name_label )
-        @connection.request(
-          :parser   => Fog::Parsers::Xenserver::GetVms.new,
-          :path     => 'VM.get_by_name_label'
-        )
+      def get_vm( name_label )
+        vm = @connection.request({:parser => Fog::Parsers::Xenserver::GetVm.new, :method => 'VM.get_by_name_label'}, name_label)
+        @connection.request({:parser => Fog::Parsers::Xenserver::GetVm.new, :method => 'VM.get_record'}, vm)
       end
       
     end
     
     class Mock
       
-      def get_vm
+      def get_vm( uuid )
         Fog::Mock.not_implemented
       end
       
-      def get_vm_by_name( name_label )
-        Fog::Mock.not_implemented
-      end
     end
   end
 end

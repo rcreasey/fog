@@ -16,12 +16,14 @@ module Fog
         @credentials = response["Value"]
       end
     
-      def request(params, &block)
+      def request(options, *params)
         begin
-          parser   = params.delete(:parser)
-          method   = params.delete(:path)
-          response = (params.empty?) ? @factory.call(method, @credentials) : @factory.call(method, params[:params], @credentials)
+          parser   = options.delete(:parser)
+          method   = options.delete(:method)
           
+          response = (params.empty?) ? @factory.call(method, @credentials) : eval("@factory.call('#{method}', '#{@credentials}', #{params.map {|p| "'#{p}'"}.join(',')})")
+          
+          # debugger
           raise Fog::Xenserver::InvalidRequest unless response.first === ["Status", "Success"]
           
           if parser

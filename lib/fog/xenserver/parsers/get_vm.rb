@@ -1,63 +1,39 @@
 module Fog
   module Parsers
     module Xenserver
-      
       class GetVm < Fog::Parsers::Xenserver::Base
         
-        def reset
-          @vm = {}
-          @response = { 'vms' => [] }
+        def parse( data )
+          # Depending on how the VM was called, if it's a Hash, it's the actual record,
+          # if it's an Array, it's the OpaqueRef
+          if data.is_a? Hash
+            @response[:uuid] = data['uuid'] if data.has_key?('uuid')
+            @response[:name] = data['name_label'] if data.has_key?('name_label')
+            @response[:description] = data['name_description'] if data.has_key?('name_description')
+            @response[:arch] = data['domarch'] if data.has_key?('domarch')
+            @response[:cpu] = data['VCPUs_max'].to_i if data.has_key?('VCPUs_max')
+            @response[:memory] = (data['memory_static_max'].to_i  / 1073741824) if data.has_key?('memory_static_max')
+            
+            @response[:is_a_template] = data['is_a_template'] if data.has_key?('is_a_template')
+            @response[:is_snapshot] = data['is_snapshot'] if data.has_key?('is_snapshot')
+            @response[:is_control_domain] = data['is_control_domain'] if data.has_key?('is_control_domain')
+            
+            @response[:affinity] = data['affinity'].split(':').last if data.has_key?('affinity')
+            @response[:metrics] = data['metrics'].split(':').last if data.has_key?('metrics')
+            
+            @response[:consoles] = data['consoles'].map {|c| c.split(':').last } if data.has_key?('consoles')
+            @response[:vifs] = data['VIFs'].map {|v| v.split(':').last } if data.has_key?('VIFs')
+            @response[:vbds] = data['VBDs'].map {|v| v.split(':').last } if data.has_key?('VBDs')
+            
+          elsif data.is_a? Array
+            @response = data.flatten
+          end
+          
+          @response
         end
         
-        def characters(string)
-          @value ||= ''
-          @value << string.strip
-        end
-        
-        def body
-          @stack.last[:Value]
-        end
-        
-        def end_element(name)
-          # case name
-          # when 'name_label' 
-          #   @vm['name'] = @value
-          # when 'name_description' 
-          #   @vm['description'] = @value
-          # when 'domarch' 
-          #   @vm['arch'] = @value
-          # when 'VCPUs_max' 
-          #   @vm['cpu'] = @value.to_i
-          # when 'memory_static_max' 
-          #   @vm['memory'] = @value.to_i / 1073741824
-          # when 'consoles'
-          #   @vm['consoles'] ||= []
-          #   @vm['consoles'] << @value.split(':').last
-          # when 'VIFs'
-          #   @vm['vifs'] ||= []
-          #   @vm['vifs'] << @value.split(':').last
-          # when 'VBDs'
-          #   @vm['vbds'] ||= []
-          #   @vm['vbds'] << @value.split(':').last
-          # when 'is_a_template'
-          #   @vm['is_a_template'] = @value
-          # when 'is_snapshot'
-          #   @vm['is_snapshot'] = @value
-          # when 'is_control_domain'
-          #   @vm['is_control_domain'] = @value
-          # when 'affinity'
-          #   @vm['affinity_uuid'] = @value.split(':').last
-          # when 'metrics'
-          #   @vm['metrics_uuid'] = @value.split(':').last
-          # when /OpaqueRef:(.*)/
-          #   @vm['uuid'] = $1
-          #   @response['vms'] << @vm if (@vm['is_a_template'] or @vm['is_control_domain'] or @vm['is_snapshot'])
-          #   @vm = {}
-          # end
-        end
-
       end
-
+      
     end
   end
 end

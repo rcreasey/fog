@@ -12,8 +12,10 @@ module Fog
     
     model_path 'fog/xenserver/models'
     model 'vm'
+    model 'vms'
     
     request_path 'fog/xenserver/requests'
+    request 'get_vm'
     request 'get_vms'
     
     class Real
