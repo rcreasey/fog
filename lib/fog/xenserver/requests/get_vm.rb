@@ -5,8 +5,8 @@ module Fog
       require 'fog/xenserver/parsers/get_vm'
 
       def get_vm( name_label )
-        vm = @connection.request({:parser => Fog::Parsers::Xenserver::GetVm.new, :method => 'VM.get_by_name_label'}, name_label)
-        @connection.request({:parser => Fog::Parsers::Xenserver::GetVm.new, :method => 'VM.get_record'}, vm)
+        vm_ref = @connection.request({:parser => Fog::Parsers::Xenserver::GetVm.new, :method => 'VM.get_by_name_label'}, name_label)
+        @connection.request({:parser => Fog::Parsers::Xenserver::GetVm.new, :method => 'VM.get_record'}, vm_ref)
       end
       
     end

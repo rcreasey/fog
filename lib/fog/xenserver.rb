@@ -1,11 +1,10 @@
 require 'ruby-debug'
+require 'fog/xenserver/connection'
+require 'fog/xenserver/parser'
 
 module Fog
   module Xenserver
     extend Fog::Service
-    
-    require 'fog/xenserver/connection'
-    require 'fog/xenserver/parser'
     
     requires :xenserver_username
     requires :xenserver_password
@@ -13,10 +12,14 @@ module Fog
     model_path 'fog/xenserver/models'
     model 'vm'
     model 'vms'
+    model 'host'
+    model 'hosts'
     
     request_path 'fog/xenserver/requests'
     request 'get_vm'
     request 'get_vms'
+    request 'get_host'
+    request 'get_hosts'
     
     class Real
       include Collections

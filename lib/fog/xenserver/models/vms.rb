@@ -15,12 +15,12 @@ module Fog
       model Fog::Xenserver::Vm
 
       def all
-        data = connection.get_blocks.body
+        data = connection.get_vms
         load(data)
       end
 
-      def get(vm_uuid)
-        if vm_uuid && vm = connection.get_block(vm_uuid).body
+      def get( vm_name )
+        if vm_name && vm = connection.get_vm( vm_name )
           new(vm)
         end
       rescue Fog::Xenserver::NotFound
