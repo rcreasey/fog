@@ -23,7 +23,7 @@ module Fog
       end
 
       def get( vm_name )
-        if vm_name && vm = connection.get_server( vm_name )
+        if vm_name && vm = connection.get_vm( vm_name )
           new(vm)
         end
       rescue Fog::Xenserver::NotFound

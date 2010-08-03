@@ -17,7 +17,7 @@ module Fog
           if data.is_a? Hash
             @response = data.symbolize_keys!
           elsif data.is_a? Array
-            @respnose = data.flatten
+            @response = data.first
           end
           
           @response
