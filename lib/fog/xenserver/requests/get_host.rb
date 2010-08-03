@@ -6,7 +6,11 @@ module Fog
 
       def get_host( name_label )
         host_ref = @connection.request({:parser => Fog::Parsers::Xenserver::Base.new, :method => 'host.get_by_name_label'}, name_label)
-        @connection.request({:parser => Fog::Parsers::Xenserver::Base.new, :method => 'host.get_record'}, host_ref)
+        get_host_by_ref( host_ref )
+      end
+      
+      def get_host_by_ref( opaque_ref )
+        @connection.request({:parser => Fog::Parsers::Xenserver::Base.new, :method => 'host.get_record'}, opaque_ref)
       end
       
     end

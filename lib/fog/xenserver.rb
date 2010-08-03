@@ -25,6 +25,8 @@ module Fog
     request 'get_srs'
     request 'get_network'
     request 'get_networks'
+    request 'get_vif'
+    request 'get_vifs'
     
     class Real
       include Collections

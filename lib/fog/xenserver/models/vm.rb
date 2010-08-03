@@ -50,6 +50,14 @@ module Fog
         super
       end
       
+      def networks
+        @VIFs.collect {|vif| connection.get_vif_by_ref( vif )}
+      end
+      
+      def running_on
+        connection.get_host_by_ref( @resident_on )
+      end
+      
     end
     
   end
