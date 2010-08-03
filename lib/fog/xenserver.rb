@@ -11,8 +11,9 @@ module Fog
     
     model_path 'fog/xenserver/models'
     model 'servers'
-    model 'images'
     model 'hypervisors'
+    model 'images'
+    model 'networks'
     model 'srs'
     
     request_path 'fog/xenserver/requests'
@@ -22,6 +23,8 @@ module Fog
     request 'get_hosts'
     request 'get_sr'
     request 'get_srs'
+    request 'get_network'
+    request 'get_networks'
     
     class Real
       include Collections
