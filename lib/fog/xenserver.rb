@@ -1,5 +1,3 @@
-require 'ruby-debug'
-
 module Fog
   module Xenserver
     extend Fog::Service
@@ -12,11 +10,9 @@ module Fog
     requires :xenserver_password
     
     model_path 'fog/xenserver/models'
-    model 'vm'
-    model 'vms'
-    model 'host'
-    model 'hosts'
-    model 'sr'
+    model 'servers'
+    model 'images'
+    model 'hypervisors'
     model 'srs'
     
     request_path 'fog/xenserver/requests'

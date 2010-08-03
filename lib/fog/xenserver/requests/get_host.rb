@@ -2,11 +2,11 @@ module Fog
   module Xenserver
     class Real
 
-      require 'fog/xenserver/parsers/get_host'
+      require 'fog/xenserver/parser'
 
       def get_host( name_label )
-        host = @connection.request({:parser => Fog::Parsers::Xenserver::GetHost.new, :method => 'host.get_by_name_label'}, name_label)
-        @connection.request({:parser => Fog::Parsers::Xenserver::GetHost.new, :method => 'host.get_record'}, host)
+        host = @connection.request({:parser => Fog::Parsers::Xenserver::Base.new, :method => 'host.get_by_name_label'}, name_label)
+        @connection.request({:parser => Fog::Parsers::Xenserver::Base.new, :method => 'host.get_record'}, host)
       end
       
     end

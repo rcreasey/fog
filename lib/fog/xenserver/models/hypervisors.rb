@@ -5,12 +5,12 @@ module Fog
   module Xenserver
     
     module Collections
-      def hosts
-        Fog::Xenserver::Hosts.new(:connection => self)
+      def hypervisors
+        Fog::Xenserver::Hypervisors.new(:connection => self)
       end
     end
     
-    class Hosts < Fog::Collection
+    class Hypervisors < Fog::Collection
       
       model Fog::Xenserver::Host
       

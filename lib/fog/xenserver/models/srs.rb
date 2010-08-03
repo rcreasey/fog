@@ -17,6 +17,15 @@ module Fog
       def all
         data = connection.get_srs
         load(data)
+        @response << sr if sr[:shared] and !sr[:content_type].eql?('iso')
+        
+      end
+      
+      def all
+        data = connection.get_srs
+        data.delete_if {|sr| sr[:shared].eql?(false)}
+        data.delete_if {|sr| sr[:content_type].eql?('iso')}
+        load(data)
       end
 
       def get( sr_name )

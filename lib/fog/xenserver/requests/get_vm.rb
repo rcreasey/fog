@@ -1,12 +1,12 @@
 module Fog
   module Xenserver
     class Real
-
-      require 'fog/xenserver/parsers/get_vm'
-
+      
+      require 'fog/xenserver/parser'
+      
       def get_vm( name_label )
-        vm_ref = @connection.request({:parser => Fog::Parsers::Xenserver::GetVm.new, :method => 'VM.get_by_name_label'}, name_label)
-        @connection.request({:parser => Fog::Parsers::Xenserver::GetVm.new, :method => 'VM.get_record'}, vm_ref)
+        vm_ref = @connection.request({:parser => Fog::Parsers::Xenserver::Base.new, :method => 'VM.get_by_name_label'}, name_label)
+        @connection.request({:parser => Fog::Parsers::Xenserver::Base.new, :method => 'VM.get_record'}, vm_ref)
       end
       
     end
