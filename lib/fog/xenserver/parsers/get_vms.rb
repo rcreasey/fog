@@ -8,12 +8,12 @@ module Fog
         end
         
         def parse( data )
-          vm_parser = Fog::Parsers::Xenserver::GetVm.new
-          data.each_pair do |reference, vm|
-            @vm = vm_parser.parse( vm )
-            @response << @vm unless (@vm[:is_a_template] or @vm[:is_control_domain] or @vm[:is_snapshot])
+          parser = Fog::Parsers::Xenserver::Base.new
+          data.each_pair do |reference, vm_hash|
+            vm = parser.parse( vm_hash )
+            @response << vm unless (vm[:is_a_template] or vm[:is_control_domain] or vm[:is_snapshot])
           end
-          @response.sort! {|a,b| a[:name] <=> b[:name]}
+          @response.sort! {|a,b| a[:name_label] <=> b[:name_label]}
           
         end
         

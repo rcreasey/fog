@@ -1,7 +1,7 @@
 module Fog
   module Parsers
     module Xenserver
-      class GetHosts < Fog::Parsers::Xenserver::Base
+      class GetSrs < Fog::Parsers::Xenserver::Base
         
         def reset
           @response = []
@@ -9,7 +9,7 @@ module Fog
         
         def parse( data )
           parser = Fog::Parsers::Xenserver::Base.new
-          data.each_pair {|reference, host| @response << parser.parse( host )}
+          data.each_pair {|reference, sr| @response << parser.parse( sr )}
           @response.sort! {|a,b| a[:name_label] <=> b[:name_label]}
         end
         

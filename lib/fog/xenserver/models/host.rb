@@ -1,5 +1,4 @@
 require 'fog/model'
-require 'fog/xenserver/parsers/get_vm'
 
 module Fog
   module Xenserver
@@ -7,21 +6,25 @@ module Fog
       # API Reference here:
       # http://docs.vmd.citrix.com/XenServer/5.6.0/1.0/en_gb/api/?c=host
       
-      identity :name
+      identity :uuid
       
-      attribute :uuid
-      attribute :description
+      attribute :name_label
       attribute :address
+      attribute :allowed_operations
       attribute :enabled
-      
-      attribute :resident_vms
+      attribute :hostname
       attribute :metrics
+      attribute :name_description
+      attribute :other_config
+      attribute :PBDs
+      attribute :PIFs
+      attribute :resident_VMs
       
-      attribute :pifs
-      attribute :pbds
-      
-      attribute :iscsi_iqn
-      attribute :multipathing
+      ignore_attributes :API_version_major, :API_version_minor, :API_version_vendor, :API_version_vendor_implementation,
+                        :blobs, :capabilities, :cpu_configuration, :crash_dump_sr, :crashdumps, :current_operations,
+                        :external_auth_configuration, :external_auth_service_name, :external_auth_type,
+                        :ha_network_peers, :ha_statefiles, :host_CPUs, :license_params, :logging, :patches,
+                        :sched_policy, :software_version, :supported_bootloaders, :suspend_image_sr, :tags
       
       def initialize(attributes={})
         @uuid ||= 0

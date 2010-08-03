@@ -13,7 +13,7 @@ module Fog
     
     class Mock
       
-      def get_vm( uuid )
+      def get_host( uuid )
         Fog::Mock.not_implemented
       end
       

@@ -1,7 +1,7 @@
 module Fog
   module Parsers
     module Xenserver
-      class GetVm < Fog::Parsers::Xenserver::Base
+      class GetSr < Fog::Parsers::Xenserver::Base
         
         def parse( data )
           if data.is_a? Hash

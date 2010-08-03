@@ -13,7 +13,13 @@ module Fog
           @response = {}
         end
         
-        def parse
+        def parse( data )
+          if data.is_a? Hash
+            @response = data.symbolize_keys!
+          elsif data.is_a? Array
+            @respnose = data.flatten
+          end
+          
           @response
         end
         
