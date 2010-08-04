@@ -12,7 +12,7 @@ module Fog
 
     class Servers < Fog::Collection
 
-      model Fog::Xenserver::Vm
+      model Fog::Xenserver::Server
 
       def all
         data = connection.get_vms

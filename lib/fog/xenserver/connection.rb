@@ -21,7 +21,16 @@ module Fog
           parser   = options.delete(:parser)
           method   = options.delete(:method)
           
-          response = (params.empty?) ? @factory.call(method, @credentials) : eval("@factory.call('#{method}', '#{@credentials}', #{params.map {|p| "'#{p}'"}.join(',')})")
+          if params.empty?
+            response = @factory.call(method, @credentials)
+          else
+            if params.length.eql?(1) and params.first.is_a?(Hash)
+              response = @factory.call(method, @credentials, params.first)
+            else
+              response = eval("@factory.call('#{method}', '#{@credentials}', #{params.map {|p| "'#{p}'"}.join(',')})")
+            end
+          end
+          
           raise Fog::Xenserver::InvalidRequest unless response.first === ["Status", "Success"]
           
           if parser

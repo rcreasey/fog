@@ -2,7 +2,6 @@ require 'fog/model'
 
 module Fog
   module Xenserver
-
     class Vm < Fog::Model
       # API Reference here:
       # http://docs.vmd.citrix.com/XenServer/5.6.0/1.0/en_gb/api/?c=VM
@@ -10,7 +9,6 @@ module Fog
       identity :uuid
       
       attribute :name_label
-      attribute :actions_after_shutdown
       attribute :affinity
       attribute :allowed_operations
       attribute :blobs
@@ -50,14 +48,31 @@ module Fog
         super
       end
       
+      # associations
       def networks
-        @VIFs.collect {|vif| connection.get_vif_by_ref( vif )}
+        @VIFs.collect {|vif| Fog::Xenserver::Vif.new(connection.get_vif_by_ref( vif ))}
       end
       
       def running_on
-        connection.get_host_by_ref( @resident_on )
+        Fog::Xenserver::Host.new(connection.get_host_by_ref( @resident_on ))
       end
       
+      def home_hypervisor
+        Fog::Xenserver::Host.new(connection.get_host_by_ref( @affinity ))
+      end
+      
+      # shortcuts
+      def mac_address
+        networks.first.MAC
+      end
+      
+      # operations
+      def create
+        # vm_ref = VM.clone(session, t_ref, "new vm name_label")
+        # vif_ref = VIF.create(session, )
+        # VM.provision(session, vm_ref)
+        
+      end
     end
     
   end

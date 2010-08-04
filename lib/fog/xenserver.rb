@@ -10,13 +10,17 @@ module Fog
     requires :xenserver_password
     
     model_path 'fog/xenserver/models'
+    model 'server'
     model 'servers'
     model 'hypervisors'
     model 'images'
     model 'networks'
     model 'srs'
+    model 'vif'
     
     request_path 'fog/xenserver/requests'
+    request 'create_server'
+    request 'create_vm'
     request 'get_vm'
     request 'get_vms'
     request 'get_host'
@@ -35,12 +39,21 @@ module Fog
         @host        = options[:xenserver_pool_master]
         @username    = options[:xenserver_username]
         @password    = options[:xenserver_password]
+        @defaults    = options[:xenserver_defaults] || {}
         @connection  = Fog::Xenserver::Connection.new(@host)
         @connection.authenticate(@username, @password)
       end
       
       def reload
         @connection.authenticate(@username, @password)
+      end
+      
+      def default_image
+        Fog::Xenserver::Vm.new( get_vm( @defaults[:image] ) ) if @defaults[:image]
+      end
+      
+      def default_network
+        Fog::Xenserver::Network.new( get_network( @defaults[:network] ) ) if @defaults[:network]
       end
       
     end
