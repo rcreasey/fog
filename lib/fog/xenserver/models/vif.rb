@@ -7,10 +7,10 @@ module Fog
       # API Reference here:
       # http://docs.vmd.citrix.com/XenServer/5.6.0/1.0/en_gb/api/?c=VIF
       
-      identity :uuid
+      identity :reference
       
       attribute :MAC
-      attribute :reference
+      attribute :uuid
       attribute :allowed_operations
       attribute :currently_attached
       attribute :device
