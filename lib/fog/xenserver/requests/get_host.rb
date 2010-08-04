@@ -9,8 +9,8 @@ module Fog
         get_host_by_ref( host_ref )
       end
       
-      def get_host_by_ref( opaque_ref )
-        @connection.request({:parser => Fog::Parsers::Xenserver::Base.new, :method => 'host.get_record'}, opaque_ref)
+      def get_host_by_ref( host_ref )
+        @connection.request({:parser => Fog::Parsers::Xenserver::Base.new, :method => 'host.get_record'}, host_ref).merge(:reference => host_ref)
       end
       
     end

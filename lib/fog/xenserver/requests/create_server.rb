@@ -2,8 +2,8 @@ module Fog
   module Xenserver
     class Real
 
-      def create_server( name_label )
-        create_vm( name_label )
+      def create_server( name_label, image = nil, network = nil )
+        create_vm( name_label, image, network )
       end
 
     end

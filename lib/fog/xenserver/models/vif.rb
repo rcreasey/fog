@@ -10,6 +10,7 @@ module Fog
       identity :uuid
       
       attribute :MAC
+      attribute :reference
       attribute :allowed_operations
       attribute :currently_attached
       attribute :device
@@ -28,7 +29,6 @@ module Fog
         @uuid ||= 0
         super
       end
-      
     end
     
   end

@@ -10,6 +10,7 @@ module Fog
       identity :uuid
       
       attribute :name_label
+      attribute :reference
       attribute :allowed_operations
       attribute :content_type
       attribute :name_description

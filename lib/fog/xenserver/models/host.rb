@@ -9,6 +9,7 @@ module Fog
       identity :uuid
       
       attribute :name_label
+      attribute :reference
       attribute :address
       attribute :allowed_operations
       attribute :enabled

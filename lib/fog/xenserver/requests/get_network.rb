@@ -9,8 +9,8 @@ module Fog
         get_network_by_ref( network_ref )
       end
       
-      def get_network_by_ref( opaque_ref )
-        @connection.request({:parser => Fog::Parsers::Xenserver::Base.new, :method => 'network.get_record'}, opaque_ref)
+      def get_network_by_ref( network_ref )
+        @connection.request({:parser => Fog::Parsers::Xenserver::Base.new, :method => 'network.get_record'}, network_ref).merge(:reference => network_ref)
       end
       
     end

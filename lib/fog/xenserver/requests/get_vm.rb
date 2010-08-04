@@ -6,9 +6,12 @@ module Fog
       
       def get_vm( name_label )
         vm_ref = @connection.request({:parser => Fog::Parsers::Xenserver::Base.new, :method => 'VM.get_by_name_label'}, name_label)
-        @connection.request({:parser => Fog::Parsers::Xenserver::Base.new, :method => 'VM.get_record'}, vm_ref)
+        get_vm_by_ref( vm_ref )
       end
       
+      def get_vm_by_ref( vm_ref )
+        @connection.request({:parser => Fog::Parsers::Xenserver::Base.new, :method => 'VM.get_record'}, vm_ref).merge(:reference => vm_ref)
+      end
     end
     
     class Mock

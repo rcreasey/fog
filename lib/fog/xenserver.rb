@@ -10,16 +10,17 @@ module Fog
     requires :xenserver_password
     
     model_path 'fog/xenserver/models'
-    model 'server'
     model 'servers'
     model 'hypervisors'
     model 'images'
     model 'networks'
     model 'srs'
     model 'vif'
+    model 'vm'
     
     request_path 'fog/xenserver/requests'
     request 'create_server'
+    request 'create_vif'
     request 'create_vm'
     request 'get_vm'
     request 'get_vms'

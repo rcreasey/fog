@@ -9,6 +9,7 @@ module Fog
       identity :uuid
       
       attribute :name_label
+      attribute :reference
       attribute :affinity
       attribute :allowed_operations
       attribute :blobs
@@ -67,11 +68,10 @@ module Fog
       end
       
       # operations
-      def create
-        # vm_ref = VM.clone(session, t_ref, "new vm name_label")
-        # vif_ref = VIF.create(session, )
-        # VM.provision(session, vm_ref)
-        
+      
+      # create : clones a vm from template, generates a new vif and provisions the two as a new vm instance
+      def create(name_label, image, network)
+        Fog::Xenserver::Vm.new(connection.create_vm(name_label, image, network))
       end
     end
     

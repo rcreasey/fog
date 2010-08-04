@@ -9,8 +9,8 @@ module Fog
         get_vif_by_ref( vif_ref )
       end
       
-      def get_vif_by_ref( opaque_ref )
-        @connection.request({:parser => Fog::Parsers::Xenserver::Base.new, :method => 'VIF.get_record'}, opaque_ref)
+      def get_vif_by_ref( vif_ref )
+        @connection.request({:parser => Fog::Parsers::Xenserver::Base.new, :method => 'VIF.get_record'}, vif_ref).merge(:reference => vif_ref)
       end
       
     end
