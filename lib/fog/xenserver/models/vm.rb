@@ -86,7 +86,6 @@ module Fog
       
       # operations
       def start
-        requires :reference
         return false if halted?
         connection.start_server( @reference )
         true

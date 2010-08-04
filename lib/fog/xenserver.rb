@@ -22,17 +22,17 @@ module Fog
     request 'create_server'
     request 'create_vif'
     request 'create_vm'
-    request 'get_vm'
-    request 'get_vms'
     request 'get_host'
     request 'get_hosts'
-    request 'get_sr'
-    request 'get_srs'
     request 'get_network'
     request 'get_networks'
+    request 'get_sr'
+    request 'get_srs'
     request 'get_vif'
     request 'get_vifs'
-    request 'start_server'
+    request 'get_vm'
+    request 'get_vms'
+    request 'start_vm'
     
     class Real
       include Collections

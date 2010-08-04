@@ -27,7 +27,7 @@ module Fog
             if params.length.eql?(1) and params.first.is_a?(Hash)
               response = @factory.call(method, @credentials, params.first)
             else
-              response = eval("@factory.call('#{method}', '#{@credentials}', #{params.map {|p| "'#{p}'"}.join(',')})")
+              response = eval("@factory.call('#{method}', '#{@credentials}', #{params.map {|p|  p.is_a?(String) ? "'#{p}'" : p}.join(',')})")
             end
           end
           

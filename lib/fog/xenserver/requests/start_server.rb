@@ -2,8 +2,8 @@ module Fog
   module Xenserver
     class Real
       
-      def start_server( vm_ref, force = false )
-        start_vm( vm_ref, force )
+      def start_server( vm_ref )
+        start_vm( vm_ref )
       end
       
     end

@@ -2,8 +2,10 @@ module Fog
   module Xenserver
     class Real
       
-      def start_vm( vm_ref, force = false )
-        @connection.request({:parser => Fog::Parsers::Xenserver::Base.new, :method => 'VM.start'}, vm_ref, force)
+      # http://bit.ly/8ZPyCN
+      # VM.start( session, VM_ref, start_paused, force)
+      def start_vm( vm_ref )
+        @connection.request({:parser => Fog::Parsers::Xenserver::Base.new, :method => 'VM.start'}, vm_ref, false, false)
       end
       
     end

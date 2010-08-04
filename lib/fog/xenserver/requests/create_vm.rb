@@ -14,7 +14,9 @@ module Fog
           
           raise Fog::Xenserver::OperationFailed unless new_vm.allowed_operations.include?('provision')
           @connection.request({:parser => Fog::Parsers::Xenserver::Base.new, :method => 'VM.provision'}, new_vm.reference)
-          get_vm_by_ref( new_vm.reference )
+          start_vm( new_vm.reference )
+          
+          new_vm
         end
       end
       
