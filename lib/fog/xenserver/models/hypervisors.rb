@@ -19,8 +19,8 @@ module Fog
         load(data)
       end
       
-      def get( host_name )
-        if host_name && host = connection.get_vm( host_name )
+      def get( host_ref )
+        if host_ref && host = connection.get_host_by_ref( host_ref )
           new(host)
         end
       rescue Fog::Xenserver::NotFound

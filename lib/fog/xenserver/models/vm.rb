@@ -6,13 +6,12 @@ module Fog
       # API Reference here:
       # http://docs.vmd.citrix.com/XenServer/5.6.0/1.0/en_gb/api/?c=VM
       
-      identity :uuid
+      identity :reference
       
+      attribute :uuid
       attribute :name_label
-      attribute :reference
       attribute :affinity
       attribute :allowed_operations
-      attribute :blobs
       attribute :consoles
       attribute :domarch
       attribute :domid
@@ -49,6 +48,12 @@ module Fog
         super
       end
       
+      def refresh
+        requires :reference
+        data = connection.get_vm_by_ref( @reference )
+        merge_attributes( data )
+      end
+      
       # associations
       def networks
         @VIFs.collect {|vif| Fog::Xenserver::Vif.new(connection.get_vif_by_ref( vif ))}
@@ -63,16 +68,42 @@ module Fog
       end
       
       # shortcuts
+      def name
+        @name_label
+      end
+      
       def mac_address
         networks.first.MAC
       end
       
-      # operations
-      
-      # create : clones a vm from template, generates a new vif and provisions the two as a new vm instance
-      def create(name_label, image, network)
-        Fog::Xenserver::Vm.new(connection.create_vm(name_label, image, network))
+      def running?
+        @power_status =~ /Running/
       end
+      
+      def halted?
+        @power_status =~ /Halted/
+      end
+      
+      # operations
+      def start
+        requires :reference
+        return false if halted?
+        connection.start_server( @reference )
+        true
+      end
+      
+      # def reboot(type = 'SOFT')
+      #   requires :reference
+      #   connection.reboot_server(@id, type)
+      #   true
+      # end
+      
+      # def snapshot
+      #   requires :reference, :name_label
+      #   data = connection.snapshot_server(@reference, @name_label)
+      #   merge_attributes(data.body)
+      #   true
+      # end
     end
     
   end

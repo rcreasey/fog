@@ -6,10 +6,10 @@ module Fog
       # API Reference here:
       # http://docs.vmd.citrix.com/XenServer/5.6.0/1.0/en_gb/api/?c=host
       
-      identity :uuid
+      identity :reference
       
       attribute :name_label
-      attribute :reference
+      attribute :uuid
       attribute :address
       attribute :allowed_operations
       attribute :enabled

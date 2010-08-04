@@ -19,8 +19,8 @@ module Fog
         load(data)
       end
 
-      def get( network_name )
-        if network_name && network = connection.get_server( network_name )
+      def get( network_ref )
+        if network_ref && network = connection.get_network_by_ref( network_ref )
           new(network)
         end
       rescue Fog::Xenserver::NotFound

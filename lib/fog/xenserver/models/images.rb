@@ -20,8 +20,8 @@ module Fog
         load(data)
       end
 
-      def get( vm_name )
-        if vm_name && vm = connection.get_server( vm_name )
+      def get( vm_ref )
+        if vm_ref && vm = connection.get_vm_by_ref( vm_ref )
           new(vm)
         end
       rescue Fog::Xenserver::NotFound

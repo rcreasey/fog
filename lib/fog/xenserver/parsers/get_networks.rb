@@ -9,7 +9,7 @@ module Fog
         
         def parse( data )
           parser = Fog::Parsers::Xenserver::Base.new
-          data.each_pair {|reference, network_hash| @response << parser.parse( network_hash ) }
+          data.each_pair {|reference, network_hash| @response << parser.parse( network_hash ).merge(:reference => reference) }
         end
         
       end

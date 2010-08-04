@@ -6,12 +6,16 @@ module Fog
         image   ||= default_image
         network ||= default_network
         
-        @connection.request({:parser => Fog::Parsers::Xenserver::Base.new, :method => 'VM.clone'}, image.reference, name_label)
-        new_vm = Fog::Xenserver::Vm.new(get_vm( name_label ))
-        create_vif( new_vm.reference, network.reference )
-        @connection.request({:parser => Fog::Parsers::Xenserver::Base.new, :method => 'VM.provision'}, new_vm.reference)
-        
-        get_vm_by_ref( new_vm.reference )
+        begin
+          raise Fog::Xenserver::OperationUnallowed unless image.allowed_operations.include?('clone')
+          @connection.request({:parser => Fog::Parsers::Xenserver::Base.new, :method => 'VM.clone'}, image.reference, name_label)
+          new_vm = Fog::Xenserver::Vm.new(get_vm( name_label ))
+          create_vif( new_vm.reference, network.reference )
+          
+          raise Fog::Xenserver::OperationFailed unless new_vm.allowed_operations.include?('provision')
+          @connection.request({:parser => Fog::Parsers::Xenserver::Base.new, :method => 'VM.provision'}, new_vm.reference)
+          get_vm_by_ref( new_vm.reference )
+        end
       end
       
     end

@@ -7,10 +7,10 @@ module Fog
       # API Reference here:
       # http://docs.vmd.citrix.com/XenServer/5.6.0/1.0/en_gb/api/?c=network
       
-      identity :uuid
+      identity :reference
       
       attribute :name_label
-      attribute :reference
+      attribute :uuid
       attribute :bridge
       attribute :name_description
       attribute :other_config

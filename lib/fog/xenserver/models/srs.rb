@@ -28,8 +28,8 @@ module Fog
         load(data)
       end
 
-      def get( sr_name )
-        if sr_name && sr = connection.get_sr( sr_name )
+      def get( sr_ref )
+        if sr_ref && sr = connection.get_sr_by_ref( sr_ref )
           new(sr)
         end
       rescue Fog::Xenserver::NotFound

@@ -32,6 +32,7 @@ module Fog
     request 'get_networks'
     request 'get_vif'
     request 'get_vifs'
+    request 'start_server'
     
     class Real
       include Collections
