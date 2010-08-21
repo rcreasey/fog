@@ -42,7 +42,7 @@ require 'fog/xenserver'
 module Fog
 
   unless const_defined?(:VERSION)
-    VERSION = '0.2.27'
+    VERSION = '0.2.28'
   end
 
   module Mock
